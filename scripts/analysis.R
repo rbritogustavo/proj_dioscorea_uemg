@@ -94,3 +94,10 @@ study_focus <- freq_count(analysis_table, study_focus, sep = ",", col_name = "co
 
 ## Export dataset
 writexl::write_xlsx(study_focus, "results/study_focus.xlsx")
+
+# 8. Species frequency analysis -------------------------------------------
+
+species <- freq_count(analysis_table, species, sep = ";", col_name = "count")
+
+## Export dataset
+writexl::write_xlsx(species, "results/species.xlsx")
