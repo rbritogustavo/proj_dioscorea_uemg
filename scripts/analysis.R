@@ -65,3 +65,32 @@ pub_trend <- pub_trend %>%
 
 ## Export dataset
 writexl::write_xlsx(pub_trend, "results/publication_trends.xlsx")
+
+# 5. Study region (country) analysis --------------------------------------
+
+study_region <- analysis_table %>% 
+  select(study_region) %>% 
+  separate_rows(study_region, sep = ";") %>% 
+  mutate(study_region = trimws(study_region)) %>% 
+  count(study_region, sort = TRUE, name = "n_papers")
+
+## Export dataset
+writexl::write_xlsx(study_region, "results/study_region_countries.xlsx")
+
+# 6. Paper classification analysis ----------------------------------------
+
+paper_class <- analysis_table %>% 
+  select(classification) %>% 
+  separate_rows(classification, sep = ",") %>% 
+  mutate(classification = trimws(classification)) %>% 
+  count(classification, sort = TRUE)
+
+## Export dataset
+writexl::write_xlsx(paper_class, "results/classification.xlsx")
+
+# 7. Study focus analysis -------------------------------------------------
+
+study_focus <- freq_count(analysis_table, study_focus, sep = ",", col_name = "count")
+
+## Export dataset
+writexl::write_xlsx(study_focus, "results/study_focus.xlsx")
