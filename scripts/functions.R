@@ -1,12 +1,11 @@
 # Frequency count
-freq_count <- function(data, col, sep = ";") {
-  # Function
-  freq <- data |>
-    separate_rows({{ col }}, sep = sep) |> # separate rows
-    mutate({{ col }} := trimws({{ col }})) |> # remove whitespace
-    count({{ col }}, sort = TRUE, name = "freq") # calculate frequency
-
-  return(freq)
+freq_count <- function(df, col, sep = ";", col_name) {
+  freq_df <- df %>% 
+    separate_rows({{col}}, sep = sep) %>% 
+    mutate({{col}} := trimws({{col}})) %>% 
+    count({{col}}, sort = TRUE, name = col_name)
+  
+  return(freq_df)
 }
 
 # Basic statistics
